@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: xunpan
+      POSTGRES_PASSWORD: xunpan
+      POSTGRES_DB: xunpanxia
+    ports:
+      - "54329:5432"
+    volumes:
+      - xunpanxia_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xunpan -d xunpanxia"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  xunpanxia_pg:
